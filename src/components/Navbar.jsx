@@ -22,18 +22,18 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? "bg-noir/80 backdrop-blur-md border-b border-white/5" : "bg-transparent"
-      }`}
-    >
-      <div className="mx-auto flex max-w-[1600px] items-center justify-between px-5 py-5 md:px-10">
+    <header className="fixed inset-x-0 top-4 z-50 flex justify-center px-4 transition-all duration-500 md:top-6 md:px-8">
+      <div
+        className={`relative flex w-full max-w-[1400px] items-center justify-between gap-6 rounded-full border border-white/20 px-5 py-3 backdrop-blur transition-all duration-500 shadow-[inset_0_1px_0_rgba(255,255,255,0.15)] md:px-8 md:py-4 ${
+          scrolled ? "bg-noir/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.15),0_8px_32px_rgba(0,0,0,0.35)]" : "bg-noir/25"
+        }`}
+      >
         <a
           href="#top"
           data-cursor
           className="flex items-center gap-3 font-display text-lg font-semibold uppercase tracking-[0.2em] text-paper"
         >
-          <img src={logoMark} alt="" className="h-6 w-6 object-contain md:h-8 md:w-8" />
+          <img src={logoMark} alt="" className="h-6 w-auto object-contain md:h-8" />
           <span>
             Lumen <span className="text-acid">Valet</span>
           </span>
@@ -76,39 +76,39 @@ export default function Navbar() {
             }`}
           />
         </button>
-      </div>
 
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.nav
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="overflow-hidden bg-noir md:hidden"
-          >
-            <div className="flex flex-col gap-6 px-6 pb-8 pt-2">
-              {links.map((link) => (
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.nav
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute inset-x-0 top-full mt-3 overflow-hidden rounded-3xl border border-white/20 bg-noir/80 backdrop-blur shadow-[inset_0_1px_0_rgba(255,255,255,0.15)] md:hidden"
+            >
+              <div className="flex flex-col gap-6 px-6 py-6">
+                {links.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setMenuOpen(false)}
+                    className="font-display text-2xl uppercase tracking-wide text-paper transition-colors duration-300 hover:text-acid"
+                  >
+                    {link.label}
+                  </a>
+                ))}
                 <a
-                  key={link.href}
-                  href={link.href}
+                  href="mailto:designlumenvalet@gmail.com"
                   onClick={() => setMenuOpen(false)}
-                  className="font-display text-2xl uppercase tracking-wide text-paper transition-colors duration-300 hover:text-acid"
+                  className="mt-2 inline-flex w-fit rounded-full border border-paper/20 px-6 py-2 font-display text-xs uppercase tracking-[0.25em] text-paper transition-all duration-300 hover:border-acid hover:text-acid"
                 >
-                  {link.label}
+                  Démarrer un projet
                 </a>
-              ))}
-              <a
-                href="mailto:designlumenvalet@gmail.com"
-                onClick={() => setMenuOpen(false)}
-                className="mt-2 inline-flex w-fit rounded-full border border-paper/20 px-6 py-2 font-display text-xs uppercase tracking-[0.25em] text-paper transition-all duration-300 hover:border-acid hover:text-acid"
-              >
-                Démarrer un projet
-              </a>
-            </div>
-          </motion.nav>
-        )}
-      </AnimatePresence>
+              </div>
+            </motion.nav>
+          )}
+        </AnimatePresence>
+      </div>
     </header>
   );
 }

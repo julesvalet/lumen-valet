@@ -71,10 +71,11 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 70;
+  z-index: 999999;
   mix-blend-mode: difference;
   border-radius: 50%;
   background-color: #f5f3ee;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 @media (max-width: 768px) {
@@ -84,7 +85,7 @@ body {
 }
 
 /* Hide the native cursor (and any pointer/hand cursor) on desktop —
-   our custom cursor takes over completely. */
+   our custom cursor takes over completely, including inside the lightbox. */
 @media (hover: hover) and (pointer: fine) {
   *,
   *::before,
@@ -93,18 +94,56 @@ body {
   }
 }
 
-/* Restore the native cursor inside the lightbox for usability */
-body.lightbox-open {
-  cursor: auto;
+/* Zoom variant — shown while hovering the fullscreen lightbox image.
+   Becomes a hollow ring with a small handle, evoking a magnifying glass,
+   while keeping the same color and difference blend mode. */
+.cursor-dot--zoom {
+  background-color: transparent;
+  border: 2.5px solid #f5f3ee;
 }
 
-body.lightbox-open .cursor-dot {
-  display: none;
+/* Anchored to the point on the ring's outer circumference at 45° (its
+   top-center pivot sits exactly on the ring edge) and rotated outward so
+   the whole handle extends away from the circle, touching it only at
+   that single point — never overlapping the interior. */
+.cursor-dot__handle {
+  position: absolute;
+  top: 85.36%;
+  left: 82.1%;
+  width: 3px;
+  height: 14px;
+  border-radius: 1.5px;
+  background-color: #f5f3ee;
+  transform-origin: top center;
+  transform: rotate(-45deg);
 }
 
-.yarl__container,
-.yarl__container * {
-  cursor: auto !important;
+/* +/- zoom-state indicator, centered in the ring */
+.cursor-dot__indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 2.5px;
+  border-radius: 1.5px;
+  background-color: #f5f3ee;
+  transform: translate(-50%, -50%);
+}
+
+.cursor-dot__indicator::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 1.5px;
+  background-color: #f5f3ee;
+  transform: rotate(90deg);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  opacity: 1;
+}
+
+.cursor-dot__indicator--minus::before {
+  opacity: 0;
+  transform: rotate(0deg);
 }
 
 /* Lock scroll while the preloader or a lightbox is active */
