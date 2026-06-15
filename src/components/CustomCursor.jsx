@@ -1,20 +1,13 @@
 import { useEffect, useState } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { motion } from "framer-motion";
+import { useCursorPosition } from "../context/CursorContext";
 
 export default function CustomCursor() {
   const [variant, setVariant] = useState("default");
   const [isZoomedIn, setIsZoomedIn] = useState(false);
-  const x = useMotionValue(-100);
-  const y = useMotionValue(-100);
-  const springX = useSpring(x, { damping: 28, stiffness: 320, mass: 0.4 });
-  const springY = useSpring(y, { damping: 28, stiffness: 320, mass: 0.4 });
+  const { springX, springY } = useCursorPosition();
 
   useEffect(() => {
-    const move = (e) => {
-      x.set(e.clientX);
-      y.set(e.clientY);
-    };
-
     const over = (e) => {
       if (e.target.closest(".yarl__slide_image")) {
         setVariant("zoom");
@@ -29,15 +22,13 @@ export default function CustomCursor() {
       setIsZoomedIn(Boolean(e.detail?.zoomed));
     };
 
-    window.addEventListener("mousemove", move);
     window.addEventListener("mouseover", over);
     window.addEventListener("lightbox-zoom-change", onZoomChange);
     return () => {
-      window.removeEventListener("mousemove", move);
       window.removeEventListener("mouseover", over);
       window.removeEventListener("lightbox-zoom-change", onZoomChange);
     };
-  }, [x, y]);
+  }, []);
 
   const isZoom = variant === "zoom";
   const isActive = variant === "active";

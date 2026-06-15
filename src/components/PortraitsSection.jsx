@@ -5,13 +5,6 @@ import { ChevronDownIcon } from "./Icons";
 import GalleryLightbox from "./GalleryLightbox";
 import { portraits } from "../data/assets";
 
-const sizeClasses = {
-  small: "col-span-1 aspect-square",
-  wide: "col-span-2 aspect-[16/9] md:aspect-auto",
-  tall: "col-span-1 aspect-[3/4] md:aspect-auto md:row-span-2",
-  large: "col-span-2 aspect-square md:aspect-auto md:row-span-2",
-};
-
 const slides = portraits.map((portrait) => ({
   src: portrait.src,
   title: portrait.title,
@@ -37,11 +30,12 @@ export default function PortraitsSection() {
 
   return (
     <section id="portraits" ref={sectionRef} className="px-6 py-28 md:px-12 md:py-40">
+      <div className="mx-auto max-w-6xl">
       <div className="mb-16 md:mb-24">
         <SectionHeading index="04" label="Visages" title="Portraits & Photographie" />
       </div>
 
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:auto-rows-[minmax(280px,auto)] md:gap-5 md:grid-flow-dense">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:gap-8 lg:grid-cols-3">
         {visiblePortraits.map((portrait, i) => (
           <motion.div
             key={portrait.title}
@@ -51,12 +45,12 @@ export default function PortraitsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.6, delay: (i % 4) * 0.08, ease: [0.16, 1, 0.3, 1] }}
-            className={`group relative cursor-pointer overflow-hidden rounded-2xl bg-ink ${sizeClasses[portrait.size]}`}
+            className="group relative aspect-square cursor-pointer overflow-hidden rounded-2xl bg-ink"
           >
             <img
               src={portrait.src}
               alt={portrait.title}
-              className="absolute inset-0 h-full w-full object-cover grayscale transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105 group-hover:grayscale-0"
+              className="absolute inset-0 h-full w-full object-contain grayscale transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105 group-hover:grayscale-0"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-noir/80 via-transparent to-transparent" />
             <div className="absolute inset-x-0 bottom-0 p-6">
@@ -79,6 +73,7 @@ export default function PortraitsSection() {
           </button>
         </div>
       )}
+      </div>
 
       <GalleryLightbox slides={slides} index={lightboxIndex} setIndex={setLightboxIndex} />
     </section>

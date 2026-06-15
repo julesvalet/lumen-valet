@@ -5,13 +5,6 @@ import { ChevronDownIcon, ExpandIcon } from "./Icons";
 import GalleryLightbox from "./GalleryLightbox";
 import { projects } from "../data/assets";
 
-const sizeClasses = {
-  small: "col-span-1 aspect-square",
-  wide: "col-span-2 aspect-[16/9] md:aspect-auto",
-  tall: "col-span-1 aspect-[3/4] md:aspect-auto md:row-span-2",
-  large: "col-span-2 aspect-square md:aspect-auto md:row-span-2",
-};
-
 const slides = projects.map((project) => ({
   src: project.src,
   title: project.title,
@@ -37,6 +30,7 @@ export default function ProjectsSection() {
 
   return (
     <section id="projets" ref={sectionRef} className="px-6 py-28 md:px-12 md:py-40">
+      <div className="mx-auto max-w-6xl">
       <div className="mb-16 flex flex-col gap-6 md:mb-24 md:flex-row md:items-end md:justify-between">
         <SectionHeading index="01" label="Sélection" title="Projets" />
         <p className="max-w-sm text-sm leading-relaxed text-haze">
@@ -45,7 +39,7 @@ export default function ProjectsSection() {
         </p>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:auto-rows-[minmax(280px,auto)] md:gap-5 md:grid-flow-dense">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:gap-8 lg:grid-cols-3">
         {visibleProjects.map((project, i) => (
           <motion.div
             key={project.title}
@@ -55,12 +49,12 @@ export default function ProjectsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.6, delay: (i % 3) * 0.08, ease: [0.16, 1, 0.3, 1] }}
-            className={`group relative cursor-pointer overflow-hidden rounded-2xl bg-ink ${sizeClasses[project.size]}`}
+            className="group relative aspect-square cursor-pointer overflow-hidden rounded-2xl bg-ink"
           >
             <img
               src={project.src}
               alt={project.title}
-              className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
+              className="absolute inset-0 h-full w-full object-contain transition-transform duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-noir/90 via-noir/10 to-transparent opacity-60 transition-opacity duration-500 group-hover:opacity-90" />
 
@@ -93,6 +87,7 @@ export default function ProjectsSection() {
           </button>
         </div>
       )}
+      </div>
 
       <GalleryLightbox slides={slides} index={lightboxIndex} setIndex={setLightboxIndex} />
     </section>

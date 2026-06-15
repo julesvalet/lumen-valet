@@ -5,13 +5,6 @@ import { ChevronDownIcon } from "./Icons";
 import GalleryLightbox from "./GalleryLightbox";
 import { identity } from "../data/assets";
 
-const sizeClasses = {
-  small: "col-span-1 aspect-square",
-  wide: "col-span-2 aspect-[16/9] md:aspect-auto",
-  tall: "col-span-1 aspect-[3/4] md:aspect-auto md:row-span-2",
-  large: "col-span-2 aspect-square md:aspect-auto md:row-span-2",
-};
-
 const slides = identity.map((item) => ({
   src: item.src,
   title: item.title,
@@ -37,6 +30,7 @@ export default function IdentitySection() {
 
   return (
     <section id="identite" ref={sectionRef} className="px-6 py-28 md:px-12 md:py-40">
+      <div className="mx-auto max-w-6xl">
       <div className="mb-16 flex flex-col gap-6 md:mb-24 md:flex-row md:items-end md:justify-between">
         <SectionHeading index="02" label="Systèmes" title="Identité de Marque" />
         <p className="max-w-sm text-sm leading-relaxed text-haze md:text-right">
@@ -45,7 +39,7 @@ export default function IdentitySection() {
         </p>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:auto-rows-[minmax(280px,auto)] md:gap-5 md:grid-flow-dense">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:gap-8 lg:grid-cols-3">
         {visibleIdentity.map((item, i) => (
           <motion.div
             key={item.title}
@@ -55,12 +49,12 @@ export default function IdentitySection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.6, delay: (i % 4) * 0.08, ease: [0.16, 1, 0.3, 1] }}
-            className={`group relative cursor-pointer overflow-hidden rounded-2xl bg-paper ${sizeClasses[item.size]}`}
+            className="group relative aspect-square cursor-pointer overflow-hidden rounded-2xl bg-paper"
           >
             <img
               src={item.src}
               alt={item.title}
-              className="absolute inset-0 h-full w-full object-contain p-8 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+              className="absolute inset-0 h-full w-full object-contain transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
             />
             <div className="absolute left-5 top-5 flex flex-col gap-1">
               <p className="font-display text-xs uppercase tracking-[0.25em] text-noir/60">
@@ -84,6 +78,7 @@ export default function IdentitySection() {
           </button>
         </div>
       )}
+      </div>
 
       <GalleryLightbox slides={slides} index={lightboxIndex} setIndex={setLightboxIndex} />
     </section>

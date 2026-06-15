@@ -38,10 +38,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section
-      id="top"
-      className="relative flex min-h-screen flex-col justify-between overflow-hidden px-6 pb-12 pt-32 md:px-12"
-    >
+    <section className="relative flex min-h-screen flex-col justify-between overflow-hidden px-6 pb-12 pt-32 md:px-12">
       <svg aria-hidden="true" className="absolute h-0 w-0 overflow-hidden">
         <filter id="liquid-filter">
           <feTurbulence

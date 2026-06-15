@@ -1,90 +1,63 @@
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useTransform, animate as animateValue } from "framer-motion";
 
-const DURATION = 3000;
-const SIZE = 40;
-const STROKE = 1.5;
-const RADIUS = SIZE / 2 - STROKE;
-const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
+const GLOW_DURATION = 2.2;
+const HOLD_DURATION = 0.3;
+const EXIT_DURATION = 1.2;
 
 export default function Preloader({ onDone }) {
-  const [progress, setProgress] = useState(0);
-  const [exiting, setExiting] = useState(false);
+  const [phase, setPhase] = useState("glow"); // glow -> done
+  const progress = useMotionValue(0);
 
-  const targetX = useMotionValue(0);
-  const targetY = useMotionValue(-RADIUS);
-  const followX = useSpring(targetX, { damping: 10, stiffness: 90, mass: 0.7 });
-  const followY = useSpring(targetY, { damping: 10, stiffness: 90, mass: 0.7 });
+  const opacity = useTransform(progress, [0, 100], [0, 1]);
+  const textShadow = useTransform(
+    progress,
+    [0, 100],
+    [
+      "0 0 0px rgba(255, 255, 255, 0), 0 0 0px rgba(255, 255, 255, 0), 0 0 0px rgba(255, 255, 255, 0)",
+      "0 0 10px #fff, 0 0 20px #fff, 0 0 40px #fff",
+    ]
+  );
 
   useEffect(() => {
-    let raf;
-    const start = performance.now();
+    const controls = animateValue(progress, 100, {
+      duration: GLOW_DURATION,
+      ease: [0.16, 1, 0.3, 1],
+      onComplete: () => {
+        setTimeout(() => setPhase("done"), HOLD_DURATION * 1000);
+      },
+    });
+    return () => controls.stop();
+  }, [progress]);
 
-    const tick = (now) => {
-      const elapsed = now - start;
-      const pct = Math.min(100, (elapsed / DURATION) * 100);
-      setProgress(pct);
-
-      const angle = (pct / 100) * 2 * Math.PI - Math.PI / 2;
-      targetX.set(Math.cos(angle) * RADIUS);
-      targetY.set(Math.sin(angle) * RADIUS);
-
-      if (elapsed < DURATION) {
-        raf = requestAnimationFrame(tick);
-      } else {
-        setExiting(true);
-        setTimeout(onDone, 700);
-      }
-    };
-
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [onDone, targetX, targetY]);
-
-  const dashOffset = CIRCUMFERENCE * (1 - progress / 100);
+  useEffect(() => {
+    if (phase === "done") onDone();
+  }, [phase, onDone]);
 
   return (
     <AnimatePresence>
-      {!exiting && (
-        <motion.div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-noir"
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <div className="relative flex items-center justify-center" style={{ width: SIZE, height: SIZE }}>
-            <svg width={SIZE} height={SIZE} className="-rotate-90">
-              <circle
-                cx={SIZE / 2}
-                cy={SIZE / 2}
-                r={RADIUS}
-                fill="none"
-                stroke="rgba(245, 243, 238, 0.15)"
-                strokeWidth={STROKE}
-              />
-              <circle
-                cx={SIZE / 2}
-                cy={SIZE / 2}
-                r={RADIUS}
-                fill="none"
-                stroke="#f5f3ee"
-                strokeWidth={STROKE}
-                strokeLinecap="round"
-                strokeDasharray={CIRCUMFERENCE}
-                strokeDashoffset={dashOffset}
-              />
-            </svg>
-
-            {/* Magnetic follower — chases the progress point with inertia */}
-            <motion.span
-              className="absolute left-1/2 top-1/2 h-1.5 w-1.5 rounded-full bg-acid"
-              style={{ x: followX, y: followY, translateX: "-50%", translateY: "-50%" }}
-            />
-
-            <span className="absolute font-display text-[10px] uppercase tracking-[0.3em] text-haze">
-              {Math.round(progress)}%
-            </span>
-          </div>
-        </motion.div>
+      {phase !== "done" && (
+        <>
+          <motion.div
+            className="fixed inset-0 z-[100] bg-noir"
+            exit={{ opacity: 0 }}
+            transition={{ duration: EXIT_DURATION, ease: [0.16, 1, 0.3, 1] }}
+          />
+          <motion.div
+            className="fixed inset-0 z-[101] flex items-center justify-center"
+            exit={{ opacity: 1 }}
+            transition={{ duration: EXIT_DURATION, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <motion.div
+              layoutId="hero-title"
+              transition={{ duration: EXIT_DURATION, ease: [0.16, 1, 0.3, 1] }}
+              style={{ opacity, textShadow, color: "#fff" }}
+              className="px-6 text-center font-display font-black uppercase leading-none tracking-tight text-[clamp(3.5rem,13vw,12rem)]"
+            >
+              Lumen — Valet
+            </motion.div>
+          </motion.div>
+        </>
       )}
     </AnimatePresence>
   );

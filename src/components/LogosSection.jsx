@@ -5,13 +5,6 @@ import { ChevronDownIcon } from "./Icons";
 import GalleryLightbox from "./GalleryLightbox";
 import { logos } from "../data/assets";
 
-const sizeClasses = {
-  small: "col-span-1 aspect-square",
-  wide: "col-span-2 aspect-[16/9] md:aspect-auto",
-  tall: "col-span-1 aspect-[3/4] md:aspect-auto md:row-span-2",
-  large: "col-span-2 aspect-square md:aspect-auto md:row-span-2",
-};
-
 const slides = logos.map((logo) => ({
   src: logo.src,
   title: logo.title,
@@ -37,11 +30,12 @@ export default function LogosSection() {
 
   return (
     <section id="logos" ref={sectionRef} className="px-6 py-28 md:px-12 md:py-40">
+      <div className="mx-auto max-w-6xl">
       <div className="mb-16 md:mb-24">
         <SectionHeading index="03" label="Marques" title="Logos & Symboles" />
       </div>
 
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:auto-rows-[minmax(280px,auto)] md:gap-5 md:grid-flow-dense">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:gap-8 lg:grid-cols-3">
         {visibleLogos.map((logo, i) => (
           <motion.div
             key={logo.title + i}
@@ -51,14 +45,14 @@ export default function LogosSection() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5, delay: (i % 5) * 0.06, ease: [0.16, 1, 0.3, 1] }}
-            className={`group relative flex cursor-pointer flex-col items-center justify-center overflow-hidden rounded-2xl border border-white/5 bg-ink p-6 transition-colors duration-300 hover:border-acid/40 ${sizeClasses[logo.size]}`}
+            className="group relative aspect-square cursor-pointer overflow-hidden rounded-2xl border border-white/5 bg-ink transition-colors duration-300 hover:border-acid/40"
           >
             <img
               src={logo.src}
               alt={logo.title}
-              className="h-2/3 w-2/3 object-contain transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
+              className="absolute inset-0 h-full w-full object-contain transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
             />
-            <div className="absolute inset-x-0 bottom-0 flex flex-col items-center gap-0.5 pb-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            <div className="absolute inset-x-0 bottom-0 flex flex-col items-center gap-0.5 bg-gradient-to-t from-noir/85 to-transparent pb-4 pt-12 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
               <p className="font-display text-xs uppercase tracking-[0.2em] text-paper">
                 {logo.title}
               </p>
@@ -80,6 +74,7 @@ export default function LogosSection() {
           </button>
         </div>
       )}
+      </div>
 
       <GalleryLightbox slides={slides} index={lightboxIndex} setIndex={setLightboxIndex} />
     </section>

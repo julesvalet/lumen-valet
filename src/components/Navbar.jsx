@@ -11,7 +11,7 @@ const links = [
   { href: "#contact", label: "Contact" },
 ];
 
-export default function Navbar() {
+export default function Navbar({ docked = false }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -28,15 +28,24 @@ export default function Navbar() {
           scrolled ? "bg-noir/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.15),0_8px_32px_rgba(0,0,0,0.35)]" : "bg-noir/25"
         }`}
       >
-        <a
-          href="#top"
-          data-cursor
-          className="flex items-center gap-3 font-display text-lg font-semibold uppercase tracking-[0.2em] text-paper"
-        >
+        <a href="#top" data-cursor className="flex items-center gap-3">
           <img src={logoMark} alt="" className="h-6 w-auto object-contain md:h-8" />
-          <span>
-            Lumen <span className="text-acid">Valet</span>
-          </span>
+          {docked ? (
+            <motion.h1
+              layoutId="hero-title"
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              className="whitespace-nowrap font-display text-lg font-black uppercase tracking-[0.2em] text-paper md:text-xl"
+            >
+              Lumen — Valet
+            </motion.h1>
+          ) : (
+            <span
+              aria-hidden="true"
+              className="whitespace-nowrap font-display text-lg font-black uppercase tracking-[0.2em] text-paper opacity-0 md:text-xl"
+            >
+              Lumen — Valet
+            </span>
+          )}
         </a>
 
         <nav className="hidden items-center gap-10 md:flex">

@@ -417,3 +417,14 @@ export const portraits = [
 
 export const brandMark = lumenMascot;
 export const logoMark = lumenLogoFace;
+
+// Scanne dynamiquement TOUTES les images de /src/assets pour la traînée du Hero.
+const trailModules = import.meta.glob(
+  "../assets/*.{png,jpg,jpeg,webp,avif,gif}",
+  { eager: true, import: "default" }
+);
+// Exclut les fichiers trop lourds (upscales Gigapixel, photos brutes >2 Mo) qui plomberaient la traînée.
+const TRAIL_TOO_HEAVY = /Gigapixel|portrait Loane|landscape-nature|LUMENLOGO-2 acid|MAXIME ROUSSILLON|Audi/i;
+export const heroTrail = Object.entries(trailModules)
+  .filter(([path]) => !TRAIL_TOO_HEAVY.test(path))
+  .map(([, src]) => src);
