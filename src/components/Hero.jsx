@@ -47,14 +47,7 @@ export default function Hero() {
             numOctaves="2"
             seed="3"
             result="turbulence"
-          >
-            <animate
-              attributeName="baseFrequency"
-              dur="22s"
-              values="0.012 0.018;0.018 0.01;0.01 0.02;0.012 0.018"
-              repeatCount="indefinite"
-            />
-          </feTurbulence>
+          />
           <feDisplacementMap
             in="SourceGraphic"
             in2="turbulence"

@@ -92,6 +92,7 @@ import jlTopinBanner from "../assets/JL TOPIN banner.png";
 import dataSilhouette from "../assets/unnamed (2).jpg";
 
 // ---- PORTRAITS & PHOTOGRAPHIE --------------------------------------------
+import nikeJustDoIt from "../assets/nike just do it rose.png";
 import julesPfp from "../assets/3Jules Valet pfp.png";
 import portraitLoane from "../assets/portrait Loane.png";
 import moggedLouise from "../assets/mogged louise.png";
@@ -398,6 +399,7 @@ export const projects = [
 ];
 
 export const portraits = [
+  { src: nikeJustDoIt, title: "Nike — Just Do It", tag: "Photographie", size: "tall", badge: "NEW" },
   { src: julesPfp, title: "Jules Valet", tag: "Auto-portrait", size: "tall" },
   { src: portraitLoane, title: "Loane", tag: "Portrait", size: "large" },
   { src: moggedLouise, title: "Louise", tag: "Portrait", size: "small" },

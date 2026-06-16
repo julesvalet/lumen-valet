@@ -45,18 +45,28 @@ export default function PortraitsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.6, delay: (i % 4) * 0.08, ease: [0.16, 1, 0.3, 1] }}
-            className="group relative aspect-square cursor-pointer overflow-hidden rounded-2xl bg-ink"
+            className="group relative aspect-square cursor-pointer rounded-2xl"
           >
-            <img
-              src={portrait.src}
-              alt={portrait.title}
-              className="absolute inset-0 h-full w-full object-contain grayscale transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105 group-hover:grayscale-0"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-noir/80 via-transparent to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 p-6">
-              <p className="font-display text-lg text-paper">{portrait.title}</p>
-              <p className="text-xs uppercase tracking-[0.25em] text-acid">{portrait.tag}</p>
+            <div className="absolute inset-0 overflow-hidden rounded-2xl bg-ink">
+              <img
+                src={portrait.src}
+                alt={portrait.title}
+                className="absolute inset-0 h-full w-full object-contain grayscale transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105 group-hover:grayscale-0"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-noir/80 via-transparent to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-6">
+                <p className="font-display text-lg text-paper">{portrait.title}</p>
+                <p className="text-xs uppercase tracking-[0.25em] text-acid">{portrait.tag}</p>
+              </div>
             </div>
+            {portrait.badge && (
+              <span
+                className="absolute -left-3 -top-3 z-20 -rotate-[8deg] rounded-xl px-3 py-1 font-display text-sm font-bold uppercase tracking-wider text-white shadow-lg"
+                style={{ backgroundColor: "#2bff00", boxShadow: "0 4px 14px rgba(43,255,0,0.45)" }}
+              >
+                {portrait.badge}
+              </span>
+            )}
           </motion.div>
         ))}
       </div>
