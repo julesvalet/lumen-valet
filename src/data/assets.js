@@ -50,6 +50,7 @@ import llSignaletique from "../assets/face avant 3.png";
 import julesBusinessCard from "../assets/face arrière 3.png";
 
 // ---- PROJETS (campagnes / direction artistique) -------------------------
+import nikeSkate from "../assets/nike skate just do it.png";
 import nikeJustDoIt from "../assets/nike just do it rose.png";
 import theNorthFace from "../assets/the north face blue.png";
 import lumenNuage from "../assets/LUMEN NUAGE.png";
@@ -157,6 +158,13 @@ export const identity = [
 ];
 
 export const projects = [
+  {
+    src: nikeSkate,
+    title: "Nike — Skate",
+    description: "Affiche Just Do It skate, swoosh monumental et grain argentique. (Fait par moi-même)",
+    size: "tall",
+    badge: "NEW",
+  },
   {
     src: theNorthFace,
     title: "The North Face",
