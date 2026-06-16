@@ -293,3 +293,14 @@ body.lightbox-open {
     filter: none;
   }
 }
+
+/* Lightbox captions — drop the dark gradient bars that overlapped the top/bottom
+   of fullscreen posters; keep the title/tag legible with a soft text shadow. */
+.yarl__slide_captions_container {
+  background: transparent !important;
+}
+
+.yarl__slide_title,
+.yarl__slide_description {
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85);
+}
