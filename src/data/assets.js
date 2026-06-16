@@ -50,6 +50,8 @@ import llSignaletique from "../assets/face avant 3.png";
 import julesBusinessCard from "../assets/face arrière 3.png";
 
 // ---- PROJETS (campagnes / direction artistique) -------------------------
+import nikeJustDoIt from "../assets/nike just do it rose.png";
+import theNorthFace from "../assets/the north face blue.png";
 import lumenNuage from "../assets/LUMEN NUAGE.png";
 import lumenOpium from "../assets/LUMEN OPIUM glitch.png";
 import lumenFutur from "../assets/LUMEN the futur of the collection.png";
@@ -92,7 +94,6 @@ import jlTopinBanner from "../assets/JL TOPIN banner.png";
 import dataSilhouette from "../assets/unnamed (2).jpg";
 
 // ---- PORTRAITS & PHOTOGRAPHIE --------------------------------------------
-import nikeJustDoIt from "../assets/nike just do it rose.png";
 import julesPfp from "../assets/3Jules Valet pfp.png";
 import portraitLoane from "../assets/portrait Loane.png";
 import moggedLouise from "../assets/mogged louise.png";
@@ -156,6 +157,20 @@ export const identity = [
 ];
 
 export const projects = [
+  {
+    src: theNorthFace,
+    title: "The North Face",
+    description: "Direction artistique outdoor, dégradé bleu glacé et grain texturé. (Fait par moi-même)",
+    size: "tall",
+    badge: "NEW",
+  },
+  {
+    src: nikeJustDoIt,
+    title: "Nike — Just Do It",
+    description: "Affiche Just Do It, ambiance acid violette et flou de mouvement. (Fait par moi-même)",
+    size: "tall",
+    badge: "NEW",
+  },
   {
     src: lumenNuage,
     title: "Lumen — Nuage",
@@ -399,7 +414,6 @@ export const projects = [
 ];
 
 export const portraits = [
-  { src: nikeJustDoIt, title: "Nike — Just Do It", tag: "Photographie", size: "tall", badge: "NEW" },
   { src: julesPfp, title: "Jules Valet", tag: "Auto-portrait", size: "tall" },
   { src: portraitLoane, title: "Loane", tag: "Portrait", size: "large" },
   { src: moggedLouise, title: "Louise", tag: "Portrait", size: "small" },
