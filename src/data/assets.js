@@ -50,6 +50,7 @@ import llSignaletique from "../assets/face avant 3.png";
 import julesBusinessCard from "../assets/face arrière 3.png";
 
 // ---- PROJETS (campagnes / direction artistique) -------------------------
+import levis from "../assets/levis blue.webp";
 import nikeSkate from "../assets/nike skate just do it.png";
 import nikeJustDoIt from "../assets/nike just do it rose.png";
 import theNorthFace from "../assets/the north face blue.png";
@@ -159,25 +160,29 @@ export const identity = [
 
 export const projects = [
   {
+    src: levis,
+    title: "Levi's",
+    description: "Direction artistique denim, néon turquoise et lumière froide. (Fait par moi-même)",
+    size: "tall",
+    badge: "NEW",
+  },
+  {
     src: nikeSkate,
     title: "Nike — Skate",
     description: "Affiche Just Do It skate, swoosh monumental et grain argentique. (Fait par moi-même)",
     size: "tall",
-    badge: "NEW",
   },
   {
     src: theNorthFace,
     title: "The North Face",
     description: "Direction artistique outdoor, dégradé bleu glacé et grain texturé. (Fait par moi-même)",
     size: "tall",
-    badge: "NEW",
   },
   {
     src: nikeJustDoIt,
     title: "Nike — Just Do It",
     description: "Affiche Just Do It, ambiance acid violette et flou de mouvement. (Fait par moi-même)",
     size: "tall",
-    badge: "NEW",
   },
   {
     src: lumenNuage,
